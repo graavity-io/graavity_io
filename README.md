@@ -1,7 +1,7 @@
-# Nuchain
+# Graavity
 
-Nuchain is Nuchain's high-performance permissioned blockchain, based upon the ScalableBFT consensus algorithm
-by Will Martino. Nuchain also features _counterparty confidentiality_ leveraging the Noise protocol,
+Graavity is Graavity's high-performance permissioned blockchain, based upon the ScalableBFT consensus algorithm
+by Will Martino. Graavity also features _counterparty confidentiality_ leveraging the Noise protocol,
 and runs the Pact smart contract language.
 
 For more information:
@@ -69,14 +69,14 @@ NB: we do this because it's easier than fighting with either submodules or getti
 ### Automated Part
 Install `npm`. On Mac OS, you can run `brew install node`, which installs NodeJS and npm.
 
-Make sure that `nuchain` is building and all tests are passing.
+Make sure that `Graavity` is building and all tests are passing.
 
 Start Docker with a memory allowance of at least 4 GB.
 
-Run `./scripts/build-beta-distro.sh beta` to build nuchain-beta, or
-run `./scripts/build-beta-distro.sh aws` to build nuchain-aws.
+Run `./scripts/build-beta-distro.sh beta` to build Graavity-beta, or
+run `./scripts/build-beta-distro.sh aws` to build Graavity-aws.
 Then go get a coffee because it'll take a while.
 
-When it's done, the script outputs the file `nuchain-beta-\<version number\>.tgz`
-or `nuchain-aws-\<version number\>.tgz`. If the file is missing a version number,
+When it's done, the script outputs the file `Graavity-beta-\<version number\>.tgz`
+or `Graavity-aws-\<version number\>.tgz`. If the file is missing a version number,
 add it to .tgz file created.
