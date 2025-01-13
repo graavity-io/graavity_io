@@ -1,0 +1,59 @@
+resolver: lts-21.4
+
+build:
+  copy-bins: true
+
+nix:
+  enable: true
+  packages: [zlib.dev, zlib.out, zeromq.out, zeromq, pkg-config]
+# Local packages, usually specified by relative directory name
+packages:
+  - '.'
+
+# Packages to be pulled from upstream that are not in the resolver (e.g., acme-missiles-0.3)
+extra-deps:
+  #  - algebraic-graphs-0.2
+  #  - bloomfilter-2.0.1.0
+  #  - bound-2
+  #  - cacophony-0.10.1
+  #  - compactable-0.1.2.2
+  #  - lz4-0.2.3.1
+  #  - monad-gen-0.3.0.1
+  #  - prelude-extras-0.4.0.3
+  #  - strict-tuple-0.1.2
+  #  - unagi-chan-0.4.0.0
+  #  - katip-0.6.3.0
+  #  - FloatingHex-0.4
+  - bloomfilter-2.0.1.2@sha256:d0e89d4ab73f95a036921619904243b9118016f4e7e3ab9e81265358f99025f6,1965
+  - pact-time-0.2.0.2@sha256:d8ec0c873d530ba85cb2c911798d26937caa798e58040f5d1e4c6ce99218bb3c,2740
+  - poly-0.5.1.0@sha256:8c574f017913982fd70567545bec423823ff5bdf236c19d1443f3af47e0218ba,3418
+  - prelude-extras-0.4.0.3@sha256:1c10b0123ea13a6423d74a8fcbaeb2d5249b472588abde418a36b47b7c4f48c8,1163
+  - snap-server-1.1.2.1@sha256:8ea05b9b068c1e86be77073107eadc177d7eec93724963c063877478a062b229,15471
+
+  - git: git@github.com:aravindgopall/pact.git
+    commit: e74f4d69dc42b6ee9201a9cf42b4f6c278d123d4
+
+  - git: https://github.com/kadena-io/pact-json.git
+    commit: 2d75e5d9ee4ae6484f1f16218dd5e767ef97f593
+  # --- The following copied from Pact's stack.yaml --- #
+  # --- Missing from Stackage --- #
+  - ed25519-donna-0.1.1
+  - prettyprinter-convert-ansi-wl-pprint-1.1
+
+  # --- Forced Upgrades --- #
+  - git: https://github.com/aravindgopall/sbv
+    commit: 5bad74c93936265046b511308a19e5f864094b75
+
+  # --- Custom Pins --- #
+  - git: https://github.com/kadena-io/thyme.git
+    commit: 6ee9fcb026ebdb49b810802a981d166680d867c9
+  
+  - git: https://github.com/arshad-6093/crypton.git
+    commit: 9aedd58b472d920c90e189226116421807c2bb20
+   
+
+
+local-bin-path: ./bin
+# Extra directories used by stack for building
+# extra-include-dirs: [/path/to/dir]
+# extra-lib-dirs: [/path/to/dir]

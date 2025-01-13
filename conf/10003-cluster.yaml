@@ -1,0 +1,83 @@
+adminKeys:
+  admin0: ad109b309944648650ab938a82ae72981922d22501f8581ca8a23352db76e030
+aeBatchSize: 20000
+apiPort: 8003
+clusterMembers:
+  changeToNodes: []
+  otherNodes:
+  - alias: node0
+    fullAddr: tcp://127.0.0.1:10000
+    host: 127.0.0.1
+    port: 10000
+  - alias: node1
+    fullAddr: tcp://127.0.0.1:10001
+    host: 127.0.0.1
+    port: 10001
+  - alias: node2
+    fullAddr: tcp://127.0.0.1:10002
+    host: 127.0.0.1
+    port: 10002
+electionTimeoutRange:
+- 10000000
+- 18000000
+enableDebug: true
+enableDiagnostics: null
+enablePersistence: true
+entity:
+  local:
+    ephemeral:
+      public: 4cc5b8e965e5e87a6f447d51107c8fa04c800ccb66ad6a5bf11fe8ad42a52a6e
+      secret: ccfe7f659dd9a5b4a396bb0479e231baa687f94a58f1578e91f645ce0231c246
+    name: Dinesh
+    static:
+      public: 7d8ea4a4d7b8646e309e6d5dd258ac06252edc5e964367fe0ac14cb3867b4a33
+      secret: c241cdf9b693b54af1d65c72beeb6dbbdc58648ce1e68e71b684d0101d0948de
+  remotes:
+  - name: Alice
+    static: 4f1438a54e8b0ebad86603989ddfdcdf76d2dc0be2fa8a68a85657641a2e2321
+  - name: Bob
+    static: 53375b7326f4bab5f63e86a2880f9514b0e3b56cf6fd2e1566463f8705f73f4d
+  - name: Carol
+    static: 985b6a27ab6209b9785ade60ca0b0110dbd10965ad4b3c351b4527c864ada532
+  sending: true
+  signer:
+  - privateKey: c912fc6f688259a50b2f4121ae93bb3574a6e3c4642b65cb2da94d96b22a41fc
+    publicKey: 17cb44d74b8ad51d337ca06315de24d41c12b81256d2f42ba517563048f642bb
+  - []
+heartbeatTimeout: 2000000
+hostStaticDir: true
+inMemTxCache: 200000
+logDir: ./log
+logRules:
+  logRules:
+    PactService:
+      enable: null
+      exclude:
+      - DEBUG
+      include: null
+myPrivateKey: 521e059ffc914c3592897e477048a4744710a8aa8b314e3aded681feff0e781a
+myPublicKey: 601b885a8da3f5aa75272649663c4aea7d51057357179a116ab216a64bf4ee71
+nodeClass: active
+nodeId:
+  alias: node3
+  fullAddr: tcp://127.0.0.1:10003
+  host: 127.0.0.1
+  port: 10003
+pactPersist:
+  backend:
+    config:
+      _dbFile: "dbfile_node3.sqlite"
+      _pragmas:
+        - synchronous = OFF
+        - journal_mode = MEMORY
+        - locking_mode = EXCLUSIVE
+        - temp_store = MEMORY
+    type: SQLITE
+  writeBehind: false
+preProcThreadCount: 10
+preProcUsePar: true
+publicKeys:
+  node0: 52cd02cc8bc6a76d3928c35f104104e1ffb73d1f15e1badd692f004ef4bd0781
+  node1: 98a27962757042c5f1afd23f8b1cdba030cf9bf629d5de1e2436c0aae99c40cc
+  node2: 5e778aaa3b36efc42990fb60263be52c97a125ddc2d7f7fed36bf286703d45b0
+  node3: 601b885a8da3f5aa75272649663c4aea7d51057357179a116ab216a64bf4ee71

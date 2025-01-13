@@ -1,0 +1,19 @@
+{
+  "pact":
+  {
+    "host": "127.0.0.1",
+    "port": 8568
+  },
+  "atomizer":
+  {
+    "host": "127.0.0.1",
+    "port": 8569
+  },
+  "gas": 0.00001,
+  "consensusParams":
+  {
+    "consensusType": "Raft",
+    "weightage": 0.0
+  },
+  "adminAddress" : "20ccc48c296c3effc7c151aa33dfc4be6fa24c482a8c809ba0cbf50ab1888759"
+}

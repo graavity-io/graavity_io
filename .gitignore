@@ -1,0 +1,8 @@
+.stack-work*
+dist*
+*sqlite*
+bin/*
+log/*
+# conf*
+result*
+docker-compose.yml

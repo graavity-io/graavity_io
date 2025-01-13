@@ -1,0 +1,480 @@
+cabal-version:       2.2
+name:                nuchain
+version:             1.4.0.0
+synopsis:            A high performance permissioned blockchain.
+description:         An implementation of ScalableBFT running Pact as the Smart Contract Language
+homepage:            https://github.com/buckie/nuchain
+author:              Will Martino, Stuart Popejoy, Mark Nichols
+maintainer:          will@nuchain.io
+copyright:           Copyright (C) 2014-2015 Chris Copeland
+                     Copyright 2015-2017 (C) Will Martino, Stuart Popejoy
+                     Copyright 2018-2020 (C) Nuchain LLC
+
+license:             BSD-3-Clause
+license-file:        LICENSE
+
+category:            Network
+build-type:          Simple
+
+source-repository head
+  type:     git
+  location: git@github.com:buckie/nuchain.git
+
+
+flag db-adapters
+    description: enable DB adapters for MySQL, MSSQL (TBD)
+    manual: False
+    default: False
+
+library
+  exposed-modules:     Apps.Nuchain.Client
+                     , Apps.Nuchain.Server
+                     , Nuchain.Execution.Pact
+                     , Nuchain.Execution.Service
+                     , Nuchain.Command
+                     , Nuchain.Config
+                     , Nuchain.Config.ClusterMembership
+                     , Nuchain.Config.TMVar
+                     , Nuchain.ConfigChange
+                     , Nuchain.ConfigChange.Util
+                     , Nuchain.Consensus.Handle
+                     , Nuchain.Consensus.Handle.AppendEntries
+                     , Nuchain.Consensus.Handle.Command
+                     , Nuchain.Consensus.Handle.ElectionTimeout
+                     , Nuchain.Consensus.Handle.HeartbeatTimeout
+                     , Nuchain.Consensus.Handle.RequestVote
+                     , Nuchain.Consensus.Handle.RequestVoteResponse
+                     , Nuchain.Consensus.Publish
+                     , Nuchain.Consensus.Raft.Client
+                     , Nuchain.Consensus.Raft.Common
+                     , Nuchain.Consensus.Raft.Main
+                     , Nuchain.Consensus.Raft.Node
+                     , Nuchain.Consensus.Raft.RaftExampleT
+                     , Nuchain.Consensus.Raft.SocketClient
+                     , Nuchain.Consensus.Raft.SocketNode
+                     , Nuchain.Consensus.Raft.Store
+                     , Nuchain.Consensus.Service
+                     , Nuchain.Consensus.Util
+                     , Nuchain.Event
+                    --  , Nuchain.EVMHandler
+                     , Nuchain.Evidence.Service
+                     , Nuchain.Evidence.Spec
+                     , Nuchain.Execution.ConfigChange
+                     , Nuchain.HTTP.ApiServer
+                     , Nuchain.History.Persistence
+                     , Nuchain.History.Service
+                     , Nuchain.Log
+                     , Nuchain.Log.LogApi
+                     , Nuchain.Log.Persistence
+                     , Nuchain.Log.Service
+                     , Nuchain.Log.Types
+                     , Nuchain.Message
+                     , Nuchain.Messaging.Turbine
+                     , Nuchain.Messaging.Turbine.AER
+                     , Nuchain.Messaging.Turbine.General
+                     , Nuchain.Messaging.Turbine.NewCMD
+                     , Nuchain.Messaging.Turbine.RV
+                     , Nuchain.Messaging.Turbine.Util
+                     , Nuchain.Messaging.ZMQ
+                     , Nuchain.Monitoring.Server
+                     , Nuchain.PreProc.Service
+                     , Nuchain.Private.Private
+                     , Nuchain.Private.Service
+                     , Nuchain.Sender.Service
+                     , Nuchain.Spec.Simple
+                     , Nuchain.Types
+                     , Nuchain.Types.Base
+                     , Nuchain.Types.Command
+                     , Nuchain.Types.Comms
+                     , Nuchain.Types.Config
+                     , Nuchain.Types.ConfigChange
+                     , Nuchain.Types.Crypto
+                     , Nuchain.Types.Dispatch
+                     , Nuchain.Types.Entity
+                     , Nuchain.Types.Event
+                     , Nuchain.Types.Evidence
+                     , Nuchain.Types.Execution
+                     , Nuchain.Types.History
+                     , Nuchain.Types.HTTP
+                     , Nuchain.Types.Log
+                     , Nuchain.Types.Message
+                     , Nuchain.Types.Message.AE
+                     , Nuchain.Types.Message.AER
+                     , Nuchain.Types.Message.NewCMD
+                     , Nuchain.Types.Message.RV
+                     , Nuchain.Types.Message.RVR
+                     , Nuchain.Types.Message.Signed
+                     , Nuchain.Types.Metric
+                     , Nuchain.Types.PactDB
+                     , Nuchain.Types.PreProc
+                     , Nuchain.Types.Private
+                     , Nuchain.Types.Sender
+                     , Nuchain.Types.Spec
+                     , Nuchain.Types.Sqlite
+                     , Nuchain.Types.Turbine
+                     , Nuchain.Util.SeedPhrase
+                     , Nuchain.Util.Util
+                     , Pact.Persist.CacheAdapter
+                     , Pact.Persist.WriteBehind
+
+  build-depends:       BoundedChan
+                     , aeson
+                     , aeson-pretty
+                     , ansi-wl-pprint
+                     , array
+                     , async
+                     , attoparsec
+                     , auto-update
+                     , base
+                     , base16-bytestring
+                     , base64-bytestring
+                     , binary
+                     , bloomfilter
+                     , bound
+                     , bytestring
+                     , Cabal
+                     , cacophony
+                     , cereal
+                     , containers
+                     , criterion
+                     , crypto-api
+                     , crypton
+                     , curryer-rpc
+                     , data-default
+                     , deepseq
+                     , direct-sqlite
+                     , directory
+                     , ed25519-donna
+                     , enclosed-exceptions
+                     , errors
+                     , exceptions
+                     , extra
+                     , fast-logger
+                     , filepath
+                     , ghc-prim
+                     , hashable
+                     , hspec
+                     , http-client
+                     , libraft
+                     , lens
+                     , lens-aeson
+                     , lifted-base
+                     , lz4
+                     , megaparsec
+                     , memory
+                     , monad-control
+                     , monad-loops
+                     , monad-par
+                     , mtl
+                     , mtl-compat
+                     , network
+                     , pact
+                     , pact-json
+                     , parallel
+                     , parsers
+                     , prelude-extras
+                     , prettyprinter
+                     , primitive
+                     , process
+                     , random
+                     , safe
+                     , safe-exceptions
+                     , scientific
+                     , semigroups
+                     , servant
+                     , servant-client
+                     , servant-client-core
+                     , snap-core
+                     , servant-server
+                     , snap-server
+                     , sqlite-simple
+                     , stm
+                     , strict-tuple
+                     , string-conv
+                     , text
+                     , thyme
+                     , time
+                     , transformers
+                     , trifecta
+                     , unix
+                     , unordered-containers
+                     , utf8-string
+                     , vector
+                     , vector-space
+                     , wai-cors
+                     , warp
+                     , winery
+                     , wreq
+                     , yaml
+                     , zeromq4-haskell
+                     , zlib
+                     , protolude
+                     , postgresql-simple
+                     , optparse-applicative
+                     , repline
+                     , postgresql-simple-url
+                     , word8
+                     , network-simple
+                     , transformers-base
+                     , concurrency
+                     , byteable
+                     , postgresql-simple
+                     , hw-kafka-client
+                     , hedis
+                     , web3-ethereum
+                     , web3-provider
+                     , web3-polkadot
+                     , web3
+                     , web3-solidity
+                     , masala
+                     , higher-leveldb
+                     , resourcet
+
+  other-modules:     Paths_nuchain
+  hs-source-dirs:      src
+  ghc-options:         -Wall -fno-warn-unused-do-bind -O3
+  ghc-prof-options:    -fprof-auto -fprof-auto-calls
+  default-language:    Haskell2010
+  if flag(db-adapters)
+     cpp-options: -DDB_ADAPTERS=1
+
+executable genconfs
+  main-is:             GenerateConfigFiles.hs
+  build-depends:       base
+                     , aeson
+                     , bytestring
+                     , containers
+                     , unordered-containers
+                     , crypto-api
+                     , directory
+                     , ed25519-donna
+                     , filepath
+                     , nuchain
+                     , network
+                     , text
+                     , thyme
+                     , yaml
+                     , pact
+                     , data-default
+                     , lens
+  hs-source-dirs:      executables
+  ghc-options:         -Wall -threaded -rtsopts
+  default-language:    Haskell2010
+
+executable sentinel
+  main-is:             Sentinel.hs
+  build-depends:       base
+                     , aeson
+                     , bytestring
+                     , curryer-rpc
+                     , nuchain
+                     , pact
+                     , pact-json
+                     , scientific
+                     , servant
+                     , servant-server
+                     , SHA
+                     , text
+                     , unordered-containers
+                     , warp
+                     , base16-bytestring
+                     , crypton
+                     , winery
+                     , ed25519-donna
+                     , memory
+                     , time
+                     , dotenv
+                     , data-default
+                     , random
+                     , web3-ethereum
+                     , web3-provider
+                     , web3-polkadot
+                     , web3
+                     , web3-solidity
+                     , memory-hexstring
+  hs-source-dirs:      executables
+  ghc-options:         -Wall -threaded -O3 -rtsopts -with-rtsopts=-N -with-rtsopts=-T
+  -- ghc-prof-options:    -fprof-auto -fprof-auto-calls
+  default-language:    Haskell2010
+
+executable shard
+  main-is:             Shard.hs
+  build-depends:       base
+                     , aeson
+                     , bytestring
+                     , curryer-rpc
+                     , libraft
+                     , higher-leveldb
+                     , pact
+                     , nuchain
+                     , winery
+                     , scientific
+                     , text
+                     , time
+                     , random
+                     , cereal
+                     , network-simple
+                     , exceptions
+                     , concurrency
+                     , lifted-base
+                     , protolude
+                     , servant-server
+                     , threads
+                     , postgresql-simple
+                     , hw-kafka-client
+                     , hedis
+                     , dotenv
+                     , web3
+                     , web3-ethereum
+  hs-source-dirs:      executables
+  ghc-options:         -Wall -threaded -O3 -rtsopts -with-rtsopts=-N -with-rtsopts=-T
+  ghc-prof-options:    -fprof-auto -fprof-auto-calls
+  default-language:    Haskell2010
+
+executable atomizer
+  main-is:             Atomizer.hs
+  build-depends:       base
+                     , aeson
+                     , bytestring
+                     , curryer-rpc
+                     , higher-leveldb
+                     , pact
+                     , libraft
+                     , text
+                     , nuchain
+                     , winery
+                     , random
+                     , scientific
+                     , pact-json
+                     , servant-server
+                     , postgresql-simple
+                     , hw-kafka-client
+                     , hedis
+                     , dotenv
+                     , time
+                     , crypton
+  hs-source-dirs:      executables
+  ghc-options:         -Wall -threaded -O3 -rtsopts -with-rtsopts=-N -with-rtsopts=-T
+  ghc-prof-options:    -fprof-auto -fprof-auto-calls
+  default-language:    Haskell2010
+
+executable nuchainserver
+  main-is:             NuchainServer.hs
+  build-depends:       aeson
+                     , base
+                     , bytestring
+                     , curryer-rpc
+                     , http-conduit
+                     , nuchain
+                     , process
+                     , scientific
+                     , servant-server
+                     , text
+                     , winery
+  hs-source-dirs:      executables
+  ghc-options:         -Wall -threaded -O3 -rtsopts -with-rtsopts=-N -with-rtsopts=-T
+  ghc-prof-options:    -fprof-auto -fprof-auto-calls
+  default-language:    Haskell2010
+
+executable nuchainclient
+  main-is:             NuchainClient.hs
+  build-depends:       base
+                     , nuchain
+                     , base16-bytestring
+                     , extra
+  hs-source-dirs:      executables
+  ghc-options:         -Wall -threaded -O3 -rtsopts -with-rtsopts=-N4
+  ghc-prof-options:    -fprof-auto -fprof-auto-calls
+  default-language:    Haskell2010
+
+executable inserts
+  main-is:       Main.hs
+  other-modules: Util.TestRunner
+  build-depends:       base
+                     , aeson
+                     , cmdargs
+                     , bytestring
+                     , data-default
+                     , ed25519-donna
+                     , exceptions
+                     , extra
+                     , hspec
+                     , http-client
+                     , HUnit
+                     , nuchain
+                     , lens
+                     , pact
+                     , process
+                     , safe
+                     , text
+                     , transformers
+                     , trifecta
+                     , unordered-containers
+                     , wreq
+                     , yaml
+  hs-source-dirs:     executables/inserts
+                    , tests
+  ghc-options:        -Wall -threaded -rtsopts -with-rtsopts=-N4
+
+  default-language:   Haskell2010
+
+executable watchtower
+  main-is:             WatchTower.hs
+  build-depends:       base
+                     , aeson
+                     , bytestring
+                     , curryer-rpc
+                     , nuchain
+                     , pact
+                     , pact-json
+                     , scientific
+                     , servant
+                     , servant-server
+                     , SHA
+                     , text
+                     , unordered-containers
+                     , warp
+                     , base16-bytestring
+                     , crypton
+                     , winery
+                     , higher-leveldb
+                     , cereal
+                     , time
+                     , postgresql-simple
+                     , hw-kafka-client
+                     , hedis
+                     , dotenv
+  hs-source-dirs:      executables
+  ghc-options:         -Wall -threaded -O3 -rtsopts -with-rtsopts=-N -with-rtsopts=-T
+  ghc-prof-options:    -fprof-auto -fprof-auto-calls
+  default-language:    Haskell2010
+
+executable validator
+  main-is:             Validator.hs
+  build-depends:       base
+                     , aeson
+                     , nuchain
+                     , pact
+                     , bytestring
+                     , curryer-rpc
+                     , scientific
+                     , text
+                     , unordered-containers
+                     , warp
+                     , base16-bytestring
+                     , crypton
+                     , winery
+                     , higher-leveldb
+                     , mtl
+                     , async
+                     , network
+                     , directory
+                     , libraft
+                     , stm
+                     , cereal
+                     , protolude
+                     , containers
+  hs-source-dirs:      executables
+  ghc-options:         -Wall -threaded -O3 -rtsopts -with-rtsopts=-N -with-rtsopts=-T
+  ghc-prof-options:    -fprof-auto -fprof-auto-calls
+  default-language:    Haskell2010

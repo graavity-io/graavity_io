@@ -1,0 +1,12 @@
+(load "demo.repl")
+(load "demo/demo.pact")
+(load "demo.pact")
+(load "demo.repl")
+(load demo.repl)
+(load demo/demo.pact)
+(load demo.pact)
+(+ 1)
+(+ 1 2)
+help
+:l (+ 1 2)
+:q

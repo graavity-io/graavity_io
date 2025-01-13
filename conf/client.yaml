@@ -1,0 +1,15 @@
+endpoints:
+  node0:
+    entity: Alice
+    sender: true
+    uRL: 127.0.0.1:8000
+  node1:
+    entity: Bob
+    sender: true
+    uRL: 127.0.0.1:8001
+  node2:
+    entity: Carol
+    sender: true
+    uRL: 127.0.0.1:8002
+publicKey: e88a9662480d55672a261259f5005fea5ebc045b23e99f0ca2478996e87b49ce
+secretKey: f2da7cadb3fbd7ca84e7359b25540285de372e0681f89d5a97fe373c6a1d0e10

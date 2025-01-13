@@ -1,0 +1,76 @@
+adminKeys:
+  admin0: 49be879fe9d385f4cc0c788dea99d6aafc91441882e8e84f812d85e330dbff67
+aeBatchSize: 20000
+apiPort: 8002
+clusterMembers:
+  changeToNodes: []
+  otherNodes:
+  - alias: node0
+    fullAddr: tcp://127.0.0.1:10000
+    host: 127.0.0.1
+    port: 10000
+  - alias: node1
+    fullAddr: tcp://127.0.0.1:10001
+    host: 127.0.0.1
+    port: 10001
+electionTimeoutRange:
+- 10000000
+- 16000000
+enableDebug: true
+enableDiagnostics: null
+enablePersistence: true
+entity:
+  local:
+    ephemeral:
+      public: 040ce8b38d861743aac54cfdf653115b301edc698fbbf5fb5caa9086bb87ff3f
+      secret: af9827555313845cdde39f050e51e95b866f54a01c1433419b836b0d79e43f17
+    name: Carol
+    static:
+      public: b551cb139326ab6d26900c424ef07677c98154055cd5ca962d8eb5a52621bc4c
+      secret: 4a3e2251a4b7352861dcea54970881a1882e1eb553c48c2ef1415d54323bfbe5
+  remotes:
+  - name: Alice
+    static: 7a008d5626833ec05617c07b361991b07398cb1e0d44825fd779dc970562430a
+  - name: Bob
+    static: 456cb1eebf8a0099eef5688c6c157f9d983e6e2f33d23bb9714b1fff97542476
+  sending: true
+  signer:
+  - privateKey: a139fe5eef5137d758106b23332864379bd1dad6ce4f9e91c5df83987604d3fd
+    publicKey: b6ca70b4bfa78b850ae231738fca417159403eba28f2ba2198f55a86493efc98
+  - []
+heartbeatTimeout: 2000000
+hostStaticDir: true
+inMemTxCache: 200000
+logDir: ./log
+logRules:
+  logRules:
+    PactService:
+      enable: null
+      exclude:
+      - DEBUG
+      include: null
+myPrivateKey: 48efc7926117a28b43ec5b564b344089e85c70a51a8a1f7a3a8615aa23974b65
+myPublicKey: e4750f9f20b9cbdb0df7dbffc39c051290df9221593fd3e42f34148d73338513
+nodeClass: active
+nodeId:
+  alias: node2
+  fullAddr: tcp://127.0.0.1:10002
+  host: 127.0.0.1
+  port: 10002
+pactPersist:
+  backend:
+    config:
+      _dbFile: "dbfile_node2.sqlite"
+      _pragmas:
+        - synchronous = OFF
+        - journal_mode = MEMORY
+        - locking_mode = EXCLUSIVE
+        - temp_store = MEMORY
+    type: SQLITE
+  writeBehind: false
+preProcThreadCount: 10
+preProcUsePar: true
+publicKeys:
+  node0: 3d86ba727500edd0ddb15104cd34551f64a20f6c9850201ad3cada114d936437
+  node1: 5e963302d31f0bdd3e6707ada2f7b18c2990e21d0f5289c4a842ab5c03a66cf2
+  node2: e4750f9f20b9cbdb0df7dbffc39c051290df9221593fd3e42f34148d73338513
