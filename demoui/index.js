@@ -43,7 +43,7 @@ class App extends React.Component {
 
     this.state = {
       currentPane: initPane,
-      nuchainUrl: '/api'
+      graavityUrl: '/api'
     };
 
   }
@@ -73,7 +73,7 @@ class App extends React.Component {
     e.preventDefault();
     if (this.state.swiftText == null || this.state.swiftText == "") { return; }
     this.setState({ submitResponse: { status: "Sending ..." }});
-    fetch(`${this.state.nuchainUrl}/swift-submit`, {
+    fetch(`${this.state.graavityUrl}/swift-submit`, {
       method: 'POST',
       mode: 'cors',
       headers: { 'Content-Type': 'text/plain' },
@@ -86,7 +86,7 @@ class App extends React.Component {
   }
 
   fetchTx(transId,branch) {
-    fetch(`${this.state.nuchainUrl}/ledger-query?tx=${transId}`, {
+    fetch(`${this.state.graavityUrl}/ledger-query?tx=${transId}`, {
       method: 'get',
       mode: 'cors'
     }).then(response => response.json())
@@ -100,7 +100,7 @@ class App extends React.Component {
   }
 
   fetchNostro() {
-    fetch(`${this.state.nuchainUrl}/ledger-query?account=${londonNostro}`, {
+    fetch(`${this.state.graavityUrl}/ledger-query?account=${londonNostro}`, {
       method: 'get',
       mode: 'cors'
     }).then(response => response.json())
@@ -111,7 +111,7 @@ class App extends React.Component {
   }
 
   fetchBranch(branch) {
-    fetch(`${this.state.nuchainUrl}/ledger-query?account=${branch}`, {
+    fetch(`${this.state.graavityUrl}/ledger-query?account=${branch}`, {
       method: 'get',
       mode: 'cors'
     }).then(response => response.json())
@@ -125,14 +125,14 @@ class App extends React.Component {
 
   }
 
-handleNuchainUrlChange(e) {
-  this.setState({nuchainUrl: e.target.value});
+handlegraavityUrlChange(e) {
+  this.setState({graavityUrl: e.target.value});
 }
 
-handleNuchainUrlSubmit(e) {
+handlegraavityUrlSubmit(e) {
   e.preventDefault();
   const s = {currentPane: this.state.currentPane,
-             nuchainUrl: this.state.nuchainUrl}
+             graavityUrl: this.state.graavityUrl}
   this.resetState(s);
 
 }
@@ -140,8 +140,8 @@ handleNuchainUrlSubmit(e) {
   render() {
     return (
         <div className="app">
-        <HeaderNav handleNuchainUrlChange={e=>this.handleNuchainUrlChange(e)}
-           handleNuchainUrlSubmit={this.handleNuchainUrlSubmit}
+        <HeaderNav handlegraavityUrlChange={e=>this.handlegraavityUrlChange(e)}
+           handlegraavityUrlSubmit={this.handlegraavityUrlSubmit}
            {...this.state} />
         <Sidebar handleChangePane={(pane)=>this.handleChangePane(pane)} {...this.state} />
         <Detail acctInfo={acctInfo}

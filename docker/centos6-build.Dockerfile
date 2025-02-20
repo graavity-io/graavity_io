@@ -1,34 +1,34 @@
-FROM nuchain-base:centos-6.8
+FROM graavity-base:centos-6.8
 
-COPY ./stack-docker.yaml /nuchain/stack.yaml
-COPY ./submodules/ /nuchain/submodules/
-COPY ./nuchain.cabal /nuchain/nuchain.cabal
+COPY ./stack-docker.yaml /graavity/stack.yaml
+COPY ./submodules/ /graavity/submodules/
+COPY ./graavity.cabal /graavity/graavity.cabal
 
-RUN source /home/build-exports && ldconfig && cd /nuchain && stack build --only-snapshot
+RUN source /home/build-exports && ldconfig && cd /graavity && stack build --only-snapshot
 
-RUN source /home/build-exports && ldconfig && cd /nuchain && stack build --only-dependencies
+RUN source /home/build-exports && ldconfig && cd /graavity && stack build --only-dependencies
 
-COPY ./Setup.hs /nuchain/Setup.hs
-COPY ./conf /nuchain/conf
-COPY ./demo /nuchain/demo
-COPY ./executables /nuchain/executables
-COPY ./nuchainclient.sh /nuchain/nuchainclient.sh
-COPY ./demo /nuchain/demo
-COPY ./src /nuchain/src
-COPY ./tests /nuchain/tests
-COPY ./LICENSE /nuchain/LICENSE
+COPY ./Setup.hs /graavity/Setup.hs
+COPY ./conf /graavity/conf
+COPY ./demo /graavity/demo
+COPY ./executables /graavity/executables
+COPY ./graavityclient.sh /graavity/graavityclient.sh
+COPY ./demo /graavity/demo
+COPY ./src /graavity/src
+COPY ./tests /graavity/tests
+COPY ./LICENSE /graavity/LICENSE
 
 ARG flag
 
-RUN bash -c "mkdir -p /nuchain/log && \
+RUN bash -c "mkdir -p /graavity/log && \
     cd && source /home/build-exports && ldconfig && \
-    cd /nuchain && \
+    cd /graavity && \
     stack install $flag"
 
 
 RUN mkdir -p /centos-6.8 && \
-    cp nuchain/bin/genconfs /centos-6.8 && \
-    cp nuchain/bin/nuchainserver /centos-6.8 && \
-    cp nuchain/bin/nuchainclient /centos-6.8
+    cp graavity/bin/genconfs /centos-6.8 && \
+    cp graavity/bin/graavityserver /centos-6.8 && \
+    cp graavity/bin/graavityclient /centos-6.8
 
 CMD ["/bin/bash"]

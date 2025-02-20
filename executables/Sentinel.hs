@@ -47,7 +47,7 @@ import qualified Data.ByteArray.HexString.Internal as BA
 import qualified Network.Ethereum.Ens       as Ens
 import qualified Network.Ethereum.Api.Eth as ETH
 import Network.Wai.Handler.Warp
-import Nuchain.Util.SeedPhrase
+import graavity.Util.SeedPhrase
 import Servant
 import Servant.API
 import Servant.Server
@@ -548,7 +548,7 @@ sendEthTransaction from to amount = Web3.runWeb3 $ do
 
 data LinkEthRequest = LinkEthRequest
   { ethAddress :: Web3.Address
-  , nuchainAddress :: String
+  , graavityAddress :: String
   , ethBalance :: Maybe Quantity
   }
   deriving (Generic, FromJSON, ToJSON)
@@ -567,7 +567,7 @@ getEthBalanceHandler config conns req = do
   case result of
     Left err -> throwError $ err500 { errBody = "Failed to fetch balance from Ethereum." }
     Right wei -> do
-      let s = integerDigest $ sha256 (BSL.fromStrict $ BC.pack (nuchainAddress req))
+      let s = integerDigest $ sha256 (BSL.fromStrict $ BC.pack (graavityAddress req))
           shardId = fromInteger $ s `rem` 255
       liftIO $ print shardId
       let shardIndex = Data.List.findIndex (\(x,y) -> shardId >= x && shardId <= y) (shardRange config)
@@ -701,7 +701,7 @@ getEthBalanceHandler config conns req = do
 -- import GHC.Generics
 
 -- import Network.Wai.Handler.Warp
--- import Nuchain.Util.SeedPhrase
+-- import graavity.Util.SeedPhrase
 -- import Servant
 -- import Servant.API
 -- import Servant.Server

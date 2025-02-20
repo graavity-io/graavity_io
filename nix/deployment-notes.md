@@ -10,61 +10,61 @@
 * ssh root@54.164.36.85         -- Node 3
 
 # Server directories
-* bin: /var/lib/nuchain/profiles/current/bin/nuchainserver
+* bin: /var/lib/graavity/profiles/current/bin/graavityserver
 
-* working dir: /var/lib/nuchain/run
+* working dir: /var/lib/graavity/run
 
-* conf files: /root/nuchain/10000-cluster.yaml, etc
+* conf files: /root/graavity/10000-cluster.yaml, etc
 
-* log files: /var/lib/nuchain/run/log
+* log files: /var/lib/graavity/run/log
 
 # ssh to each server and create directories:
-* mkdir /var/lib/nuchain
+* mkdir /var/lib/graavity
 
-* mkdir /var/lib/nuchain/profiles
+* mkdir /var/lib/graavity/profiles
 
-* mkdir /var/lib/nuchain/run
+* mkdir /var/lib/graavity/run
 
-* mkdir /var/lib/nuchain/run/log
+* mkdir /var/lib/graavity/run/log
 
-* mkdir /root/nuchain
+* mkdir /root/graavity
 
-# SCP config to each node (from nuchain dir locally)
+# SCP config to each node (from graavity dir locally)
 ###    node0:
-* scp nix/conf/* root@54.166.153.21:/root/nuchain/
+* scp nix/conf/* root@54.166.153.21:/root/graavity/
 
 ###   node1:
-* scp nix/conf/* root@54.146.43.204:/root/nuchain/
+* scp nix/conf/* root@54.146.43.204:/root/graavity/
 
 ###    node2:
-* scp nix/conf/* root@34.204.71.247:/root/nuchain/
+* scp nix/conf/* root@34.204.71.247:/root/graavity/
 
 ###    node3:
-* scp nix/conf/* root@54.164.36.85:/root/nuchain/
+* scp nix/conf/* root@54.164.36.85:/root/graavity/
 
-# nix-env to pull nuchain files
+# nix-env to pull graavity files
 From each node (nix result taken from CI linux nix bulid):
 
-* nix-env -p /var/lib/nuchain/profiles/current --set /nix/store/5lcq6s9baj33rljrydzdnp1y8940cc9s-nuchain-1.3.0.0
+* nix-env -p /var/lib/graavity/profiles/current --set /nix/store/5lcq6s9baj33rljrydzdnp1y8940cc9s-graavity-1.3.0.0
 
-# Configure nuchain service
+# Configure graavity service
 ## Edit each node's /etc/nixos/configuration.nix:
 ### Add to the open port list:
 *  900N (where N is the node number) and all four of 10000, 10001, 10002, 10002
 * -- e.g.: networking.firewall.allowedTCPPorts = [ 80 443 9000 10000 10001 10002 10003];
 
 and (using the correct yaml file name per server):
- ``` systemd.services.nuchain = {
+ ``` systemd.services.graavity = {
     enable = true;
-    description = "Nuchain Node";
+    description = "graavity Node";
     wantedBy = [ "multi-user.target" ];
     after = [ "network.target" ];
     restartIfChanged = true;
     serviceConfig = {
       User = "root";
       KillMode = "process";
-      WorkingDirectory = "/var/lib/nuchain/run";
-      ExecStart = "/var/lib/nuchain/profiles/current/bin/nuchainserver +RTS -N4 -RTS -c /root/nuchain/1000N-cluster.yaml";
+      WorkingDirectory = "/var/lib/graavity/run";
+      ExecStart = "/var/lib/graavity/profiles/current/bin/graavityserver +RTS -N4 -RTS -c /root/graavity/1000N-cluster.yaml";
       Restart = "always";
       RestartSec = 5;
       LimitNOFILE = 65536;
@@ -76,20 +76,20 @@ and (using the correct yaml file name per server):
 * sudo -i nixos-rebuild switch
 
 ## Check system log for daemon startup errors:
-* journalctl -u nuchain -f
+* journalctl -u graavity -f
 
-# Check that nuchain is running (replace N with node #)
-* tail -f /var/lib/nuchain/run/log/nodeN.log
+# Check that graavity is running (replace N with node #)
+* tail -f /var/lib/graavity/run/log/nodeN.log
 
-# Restart all 4 nodes' nuchain service (from build server)
+# Restart all 4 nodes' graavity service (from build server)
 ### from each node:
-* systemctl restart nuchain
+* systemctl restart graavity
 
 ### or remotely:
-* systemctl --host=root@54.166.153.21 restart nuchain
-* systemctl --host=root@54.146.43.204 restart nuchain
-* systemctl --host=root@34.204.71.247 restart nuchain
-* systemctl --host=root@54.164.36.85 restart nuchain
+* systemctl --host=root@54.166.153.21 restart graavity
+* systemctl --host=root@54.146.43.204 restart graavity
+* systemctl --host=root@34.204.71.247 restart graavity
+* systemctl --host=root@54.164.36.85 restart graavity
 
 # nix build automation next steps
 

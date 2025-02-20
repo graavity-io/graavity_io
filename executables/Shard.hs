@@ -41,7 +41,7 @@ import Text.Read (readMaybe)
 import Data.Time.Clock
 import Data.Time.Format
 
-import Nuchain.Consensus.Raft.Client (clientRepl)
+import graavity.Consensus.Raft.Client (clientRepl)
 import Servant hiding (serve)
 import Configuration.Dotenv (loadFile, defaultConfig)
 
@@ -177,7 +177,7 @@ newtype PactLog =
 
 data LinkEthRequest = LinkEthRequest
   { ethAddress :: Web3.Address
-  , nuchainAddress :: String
+  , graavityAddress :: String
   , ethBalance :: Maybe Quantity
   }
   deriving (Generic, FromJSON, ToJSON)
@@ -340,18 +340,18 @@ handleLinkRequest txt resVar atconnection dbConn redisConn cfg = do
     Left err -> putMVar resVar $ "Error decoding request: " ++ err
     Right LinkEthRequest{..} -> do
       existingLinks <- Postgres.query dbConn
-        "SELECT eth_address FROM eth_nuchain_link WHERE nuchain_wallet_id = ?"
-        (Postgres.Only nuchainAddress)
+        "SELECT eth_address FROM eth_graavity_link WHERE graavity_wallet_id = ?"
+        (Postgres.Only graavityAddress)
       case existingLinks of
         [] -> do
           _ <- Postgres.execute dbConn
-            "INSERT INTO eth_nuchain_link (nuchain_wallet_id, eth_address, created_at) VALUES (?, ?, CURRENT_TIMESTAMP)"
-            (nuchainAddress, (show ethAddress))
+            "INSERT INTO eth_graavity_link (graavity_wallet_id, eth_address, created_at) VALUES (?, ?, CURRENT_TIMESTAMP)"
+            (graavityAddress, (show ethAddress))
           putMVar resVar "New ETH link successfully added."
         [(existingEthAddress)] | existingEthAddress /= (show ethAddress) -> 
-          putMVar resVar "Error: This Nuchain wallet already has an ETH link. Only one ETH account can be linked per Nuchain account."
+          putMVar resVar "Error: This graavity wallet already has an ETH link. Only one ETH account can be linked per graavity account."
         [(existingEthAddress)] | existingEthAddress == (show ethAddress) -> 
-          putMVar resVar "This ETH account is already linked to the Nuchain wallet."
+          putMVar resVar "This ETH account is already linked to the graavity wallet."
         _ -> putMVar resVar "Unexpected error."
 
 -- Improved Redis Cache Fetch and Fallback to PostgreSQL

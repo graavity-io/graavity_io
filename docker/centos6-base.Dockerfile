@@ -1,5 +1,5 @@
 FROM centos:6
-MAINTAINER Will <will@nuchain.io>
+MAINTAINER Will <will@graavity.io>
 
 RUN yum -y upgrade && \
     find / -iname gmp && \

@@ -8,7 +8,7 @@
   tags:
     - launch
   tasks:
-    - name: Launch Nuchain Server Instances
+    - name: Launch graavity Server Instances
       ec2:
         key_name: "{{ instance_key_name }}"
         group: "{{ instance_security_group }}"
@@ -19,10 +19,10 @@
         region: "{{ instance_region }}"
         monitoring: no
         instance_tags:
-          Name: nuchain_server
-        exact_count: "{{ instance_nuchain_server_count }}"
+          Name: graavity_server
+        exact_count: "{{ instance_graavity_server_count }}"
         count_tag:
-          Name: nuchain_server
+          Name: graavity_server
       register: ec2_servers_out
 
     - name: Wait for SSH to come up
@@ -41,7 +41,7 @@
   vars_files:
     - ansible_vars.yml
   vars:
-    ipList: "{{ hostvars[inventory_hostname].groups.tag_Name_nuchain_server }}"
+    ipList: "{{ hostvars[inventory_hostname].groups.tag_Name_graavity_server }}"
   tasks:
     - name: Create 'conf' directory to store nodes' configuration file 
       file:
@@ -57,19 +57,19 @@
         - "{{ conf_path }}/conf/*"
         - ipAddr.yml
 
-    - name: Create file of Nuchain server(s)' IP addresses
+    - name: Create file of graavity server(s)' IP addresses
       template:
         src: templates/ipAddr.j2
         dest: ipAddr.yml
         mode: 0777
 
-    - name: Generate default node configuration for the Nuchain servers
+    - name: Generate default node configuration for the graavity servers
       shell: yes '' | "{{ bin_path | expanduser }}"/genconfs --distributed "{{ playbook_dir }}"/ipAddr.yml
       args:
         chdir: "{{ conf_path }}"
 
 - name: Configure instance(s)
-  hosts: tag_Name_nuchain_server
+  hosts: tag_Name_graavity_server
   become: True
   gather_facts: False
   vars_files:
@@ -86,8 +86,8 @@
         src: "{{ conf_path }}/conf/{{inventory_hostname}}-cluster.yaml"
         dest: conf-cluster.yaml
 
-    - name: Copy `nuchainserver` executable to server
+    - name: Copy `graavityserver` executable to server
       copy:
-        src: "{{ bin_path }}/nuchainserver"
-        dest: nuchainserver
+        src: "{{ bin_path }}/graavityserver"
+        dest: graavityserver
         mode: a+x

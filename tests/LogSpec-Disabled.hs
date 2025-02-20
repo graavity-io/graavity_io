@@ -8,9 +8,9 @@ import Control.Lens
 import Data.Maybe (fromJust)
 import qualified Data.Map.Strict as Map
 
-import Nuchain.Types
-import Nuchain.Log.LogApi hiding (keySet)
--- import Nuchain.Log.Types hiding (keySet)
+import graavity.Types
+import graavity.Log.LogApi hiding (keySet)
+-- import graavity.Log.Types hiding (keySet)
 
 {-
 spec :: Spec

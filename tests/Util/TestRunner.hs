@@ -18,8 +18,8 @@ module Util.TestRunner
   , TestResponse(..)
   , TestResult(..)) where
 
-import           Apps.Nuchain.Client
-import qualified Apps.Nuchain.Server as App
+import           Apps.graavity.Client
+import qualified Apps.graavity.Server as App
 import           Control.Concurrent
 import           Control.Lens
 import           Control.Monad
@@ -34,7 +34,7 @@ import           Data.List
 import           Data.List.Extra
 import qualified Data.Yaml as Y
 import           GHC.Generics (Generic)
-import           Nuchain.Types.Command (CommandResult(..))
+import           graavity.Types.Command (CommandResult(..))
 import           Network.Wreq
 import qualified Network.Wreq as WR (getWith)
 import qualified Pact.ApiReq as Pact
@@ -136,7 +136,7 @@ runClientCommands args testRequests = do
         =<< Y.decodeFileEither (_oConfig opts)
       let replState = ReplState
             { _server = fst (minimum $ HM.toList (_ccEndpoints conf))
-            , _batchCmd = "\"Hello Nuchain\""
+            , _batchCmd = "\"Hello graavity\""
             , _requestId = i
             , _cmdData = Null
             , _keys = Just [Pact.ApiKeyPair

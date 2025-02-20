@@ -1,31 +1,31 @@
-FROM nuchain-base:ubuntu-16.04
+FROM graavity-base:ubuntu-16.04
 
-COPY ./stack-docker.yaml /nuchain/stack.yaml
-COPY ./submodules/ /nuchain/submodules/
-COPY ./nuchain.cabal /nuchain/nuchain.cabal
+COPY ./stack-docker.yaml /graavity/stack.yaml
+COPY ./submodules/ /graavity/submodules/
+COPY ./graavity.cabal /graavity/graavity.cabal
 
-RUN cd /nuchain && stack build --only-snapshot && stack build --only-dependencies
+RUN cd /graavity && stack build --only-snapshot && stack build --only-dependencies
 
-COPY ./Setup.hs /nuchain/Setup.hs
-COPY ./conf /nuchain/conf
-COPY ./demo /nuchain/demo
-COPY ./executables /nuchain/executables
-COPY ./nuchainclient.sh /nuchain/nuchainclient.sh
-COPY ./demo /nuchain/demo
-COPY ./src /nuchain/src
-COPY ./tests /nuchain/tests
-COPY ./LICENSE /nuchain/LICENSE
+COPY ./Setup.hs /graavity/Setup.hs
+COPY ./conf /graavity/conf
+COPY ./demo /graavity/demo
+COPY ./executables /graavity/executables
+COPY ./graavityclient.sh /graavity/graavityclient.sh
+COPY ./demo /graavity/demo
+COPY ./src /graavity/src
+COPY ./tests /graavity/tests
+COPY ./LICENSE /graavity/LICENSE
 
 ARG flag
 
-RUN bash -c "mkdir -p /nuchain/log && \
+RUN bash -c "mkdir -p /graavity/log && \
     cd && source ./build-exports && \
-    cd /nuchain && \
+    cd /graavity && \
     stack install $flag"
 
 RUN mkdir -p /ubuntu-16.04 && \
-    cp /nuchain/bin/genconfs /ubuntu-16.04 && \
-    cp /nuchain/bin/nuchainserver /ubuntu-16.04 && \
-    cp /nuchain/bin/nuchainclient /ubuntu-16.04
+    cp /graavity/bin/genconfs /ubuntu-16.04 && \
+    cp /graavity/bin/graavityserver /ubuntu-16.04 && \
+    cp /graavity/bin/graavityclient /ubuntu-16.04
 
 CMD ["/bin/bash"]

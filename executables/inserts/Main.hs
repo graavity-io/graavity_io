@@ -18,7 +18,7 @@ import System.Console.CmdArgs
 import System.Time.Extra
 import System.Process
 
-import Apps.Nuchain.Client (esc)
+import Apps.graavity.Client (esc)
 import Util.TestRunner
 
 main :: IO ()
@@ -53,8 +53,8 @@ insertArgs = InsertArgs
     , AcctTransferUnique &= help "Execute multiple acct transfers with unique transfer amounts"
       &= name "accttransferunique" &= name "atu" ]
   , noRunServer = False &= name "n" &= name "norunserver"
-    &= help "Flag specifying this exe should not launch Nuchain server instances"
-  , configFile = "client.yaml" &= name "c" &= name "configfile" &= help "Nuchain config file"
+    &= help "Flag specifying this exe should not launch graavity server instances"
+  , configFile = "client.yaml" &= name "c" &= name "configfile" &= help "graavity config file"
   , dirForConfig = insertsConfDir &= name "d" &= name "dirForConfig"
     &= help "Location of config files"
   , enableDiagnostics = False &= name "e" &= name "enablediagnostics"
@@ -63,9 +63,9 @@ insertArgs = InsertArgs
     &= help "Run batches inside a single Pact Cmd/Transaction"
   }
 
-insertsConfDir,  nuchainDemoDir :: String
+insertsConfDir,  graavityDemoDir :: String
 insertsConfDir = "conf/"
-nuchainDemoDir = "demo/"
+graavityDemoDir = "demo/"
 
 startupStuff :: InsertArgs -> IO ()
 startupStuff theArgs = do
@@ -120,12 +120,12 @@ passMetric tmr = "Metric test passed: " ++ metricNameTm (requestTmr tmr)
 testMetricSize4 :: TestMetric
 testMetricSize4 = TestMetric
   { testNameTm = "testMetricSize4"
-  , metricNameTm = "/nuchain/cluster/size"
+  , metricNameTm = "/graavity/cluster/size"
   , evalTm = (\s -> readDef (0.0 :: Float) s == 4.0) }
 
 delLogFiles :: IO ()
 delLogFiles = do
-   let p = shell $ nuchainDemoDir ++ "deleteLogFiles.sh"
+   let p = shell $ graavityDemoDir ++ "deleteLogFiles.sh"
    _ <- createProcess p
    return ()
 

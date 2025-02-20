@@ -1,4 +1,4 @@
-# Retrives the sqlite and log files produced by Nuchain Servers
+# Retrives the sqlite and log files produced by graavity Servers
 
 - name: Cleans up Ansible Monitor's logs/ directory
   hosts: localhost
@@ -14,8 +14,8 @@
         state: directory
         mode: 0755
     
-- name: Fetch Nuchain Servers' log files
-  hosts: tag_Name_nuchain_server
+- name: Fetch graavity Servers' log files
+  hosts: tag_Name_graavity_server
   become: True
   gather_facts: True
   tasks:

@@ -1,7 +1,7 @@
-### (Re)start Nuchain Servers
+### (Re)start graavity Servers
 
-- name: Shutdown Nuchain Server(s)
-  hosts: tag_Name_nuchain_server
+- name: Shutdown graavity Server(s)
+  hosts: tag_Name_graavity_server
   become: True
   vars:
     ansible_python_interpreter: /usr/bin/python3
@@ -9,8 +9,8 @@
   tags:
     - shutdown
   tasks:
-    - name: Identify Threads Running Nuchain Server (if running)
-      shell: "ps -ef | grep -v grep | grep -w nuchainserver | awk '{print $2}'"
+    - name: Identify Threads Running graavity Server (if running)
+      shell: "ps -ef | grep -v grep | grep -w graavityserver | awk '{print $2}'"
       register: running
 
     - name: Kill Running Threads
@@ -28,14 +28,14 @@
       shell: "kill -9 {{ item }}"
       with_items: "{{ killed.results | select('failed') | map(attribute='item') | list }}"
 
-- name: Clean up Nuchain Server(s) Logs and Configs
-  hosts: tag_Name_nuchain_server
+- name: Clean up graavity Server(s) Logs and Configs
+  hosts: tag_Name_graavity_server
   become: True
   gather_facts: False
   vars_files:
     - ansible_vars.yml
   tasks:
-    - name: Remove Nuchain Server Logs
+    - name: Remove graavity Server Logs
       shell: rm -rf log/*
       args: 
         warn: False
@@ -54,12 +54,12 @@
         src: "{{ conf_path }}/conf/{{inventory_hostname}}-cluster.yaml"
         dest: conf-cluster.yaml
 
-- name: Start Nuchain Servers
-  hosts: tag_Name_nuchain_server
+- name: Start graavity Servers
+  hosts: tag_Name_graavity_server
   become: True
   gather_facts: False
   tasks:
-    - shell: ./nuchainserver -c conf-cluster.yaml 2>&1 | tee -a log/node.log && sleep 1
+    - shell: ./graavityserver -c conf-cluster.yaml 2>&1 | tee -a log/node.log && sleep 1
       async: 86400
       poll: 0
       register: active_servers

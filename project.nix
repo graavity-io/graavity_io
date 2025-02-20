@@ -21,11 +21,11 @@ gitignore = pkgs.callPackage (pkgs.fetchFromGitHub {
 }) {};
 
 in {
-    name = "nuchain-umbrella";
+    name = "graavity-umbrella";
     overrides = import ./overrides.nix pactSrc hackGet pkgs;
 
     packages = {
-      nuchain = gitignore.gitignoreSource [".git" ".gitlab-ci.yml" "CHANGELOG.md" "README.md"] ./.;
+      graavity = gitignore.gitignoreSource [".git" ".gitlab-ci.yml" "CHANGELOG.md" "README.md"] ./.;
     };
 
     shellToolOverrides = ghc: super: {
@@ -36,6 +36,6 @@ in {
     };
 
     shells = {
-      ghc = ["nuchain"];
+      ghc = ["graavity"];
     };
   })

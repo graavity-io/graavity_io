@@ -1,54 +1,54 @@
 #!/bin/sh
 
-if [ ! -d "aws-conf" ];then echo "Can't find nuchain/aws-conf"; exit 1; fi
+if [ ! -d "aws-conf" ];then echo "Can't find graavity/aws-conf"; exit 1; fi
 cd aws-conf
 
 cmd="$1"
 case $cmd in
   distBins)
-      for i in `cat nuchainservers.privateIp`; do
-          scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i ~/user.pem -r ../bin/nuchainserver ec2-user@$i: &
+      for i in `cat graavityservers.privateIp`; do
+          scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i ~/user.pem -r ../bin/graavityserver ec2-user@$i: &
       done
-      for i in `cat nuchainservers.privateIp`; do
+      for i in `cat graavityservers.privateIp`; do
           ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i ~/user.pem ec2-user@$i 'mkdir ./conf; mkdir ./log' &
       done
     exit 0
     ;;
   config)
-    for i in `cat nuchainservers.privateIp`;
+    for i in `cat graavityservers.privateIp`;
       do scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i ~/user.pem -r $i/* ec2-user@$i: & done
     exit 0
     ;;
   start)
-    for i in `cat nuchainservers.privateIp`;
+    for i in `cat graavityservers.privateIp`;
       do ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i ~/user.pem ec2-user@$i './start.sh' & done
     exit 0
     ;;
   stop)
-    for i in `cat nuchainservers.privateIp`;
-      do ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i ~/user.pem ec2-user@$i 'pkill nuchainserver' & done
+    for i in `cat graavityservers.privateIp`;
+      do ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i ~/user.pem ec2-user@$i 'pkill graavityserver' & done
     exit 0
     ;;
   map)
-      for i in `cat nuchainservers.privateIp`;
+      for i in `cat graavityservers.privateIp`;
       do ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i ~/user.pem ec2-user@$i "${@:2}" ; done
          exit 0
          ;;
   status)
-    for i in `cat nuchainservers.privateIp`;
-      do echo $i ; curl -sH "Accept: application/json" "$i:10080" | jq '.nuchain | {role: .node.role.val, commit_index: .consensus.commit_index.val, applied_index: .node.applied_index.val}' ; done
+    for i in `cat graavityservers.privateIp`;
+      do echo $i ; curl -sH "Accept: application/json" "$i:10080" | jq '.graavity | {role: .node.role.val, commit_index: .consensus.commit_index.val, applied_index: .node.applied_index.val}' ; done
     exit 0
     ;;
   copyLogs)
-    for i in `cat nuchainservers.privateIp`; do scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i ~/user.pem -r ec2-user@$i:./${i}-output.log ~/nuchain/cluster-logs/${i}-output.log & done
+    for i in `cat graavityservers.privateIp`; do scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i ~/user.pem -r ec2-user@$i:./${i}-output.log ~/graavity/cluster-logs/${i}-output.log & done
     exit 0
     ;;
   reset)
-    for i in `cat nuchainservers.privateIp`; do ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i ~/user.pem ec2-user@$i 'rm ~/*-output.log ~/log/*' & done
+    for i in `cat graavityservers.privateIp`; do ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i ~/user.pem ec2-user@$i 'rm ~/*-output.log ~/log/*' & done
     exit 0
     ;;
   ps)
-    for i in `cat nuchainservers.privateIp`; do ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i ~/user.pem ec2-user@$i 'pgrep nuchainserver' & done
+    for i in `cat graavityservers.privateIp`; do ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i ~/user.pem ec2-user@$i 'pgrep graavityserver' & done
     exit 0
     ;;
   *)

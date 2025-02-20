@@ -1,17 +1,17 @@
-### Shutdown Ec2 Instances Running Nuchain Server
+### Shutdown Ec2 Instances Running graavity Server
 
-- name: Terminate all Nuchain server EC2 instances
+- name: Terminate all graavity server EC2 instances
   hosts: localhost
   gather_facts: False
   connection: local
   vars_files:
     - ansible_vars.yml
   tasks:
-    - name: Get EC2 Instance Id by 'nuchain_server' Tag
+    - name: Get EC2 Instance Id by 'graavity_server' Tag
       ec2_instance_facts:
         region: "{{ instance_region }}"
         filters:
-          "tag:Name": nuchain_server
+          "tag:Name": graavity_server
           instance-state-name: running
       register: running_servers
 

@@ -7,7 +7,7 @@ pactPersist:
       - journal_mode = MEMORY
       - locking_mode = EXCLUSIVE
       - temp_store = MEMORY
-      _dbFile: /var/lib/nuchain/run/log/node2-pact.sqlite
+      _dbFile: /var/lib/graavity/run/log/node2-pact.sqlite
     type: SQLITE
 enableDiagnostics: null
 publicKeys:
@@ -17,7 +17,7 @@ publicKeys:
   node3: 542f27a3f87d132f9dfa213150634096370c072a058f3a5b4e840da0703a23ad
 aeBatchSize: 20000
 heartbeatTimeout: 2000000
-logDir: /var/lib/nuchain/run/log
+logDir: /var/lib/graavity/run/log
 apiPort: 9002
 logRules:
   PactService:

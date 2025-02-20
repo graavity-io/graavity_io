@@ -18,10 +18,10 @@ import Data.Maybe
 
 import System.Exit
 
-import Nuchain.Command
-import qualified Nuchain.Types.Crypto as KC
-import Nuchain.Log
-import Nuchain.Types
+import graavity.Command
+import qualified graavity.Types.Crypto as KC
+import graavity.Log
+import graavity.Types
 import qualified Pact.Types.Command as P
 import qualified Pact.Types.Crypto as P
 import qualified Pact.Types.Hash as P

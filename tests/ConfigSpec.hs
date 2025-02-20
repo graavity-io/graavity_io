@@ -12,11 +12,11 @@ import qualified Data.HashMap.Strict as HM
 import "crypto-api" Crypto.Random
 import qualified Crypto.Ed25519.Pure as Ed25519
 
-import qualified Nuchain.Config.ClusterMembership as CM
-import Nuchain.Types.PactDB
-import Nuchain.Config.TMVar
-import Nuchain.Types.Base
-import Nuchain.Types.Entity as EN
+import qualified graavity.Config.ClusterMembership as CM
+import graavity.Types.PactDB
+import graavity.Config.TMVar
+import graavity.Types.Base
+import graavity.Types.Entity as EN
 
 import Pact.Types.Logger
 

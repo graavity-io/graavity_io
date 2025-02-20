@@ -35,9 +35,9 @@ CREATE TABLE IF NOT EXISTS transactions (
     FOREIGN KEY (to_wallet) REFERENCES users(public_key)    -- Links recipient's wallet
 );
 
--- Table to link ETH addresses with Nuchain wallets
-CREATE TABLE IF NOT EXISTS eth_nuchain_link (
-    nuchain_wallet_id VARCHAR(128) PRIMARY KEY REFERENCES users(public_key),  -- Links to public_key in users table
+-- Table to link ETH addresses with graavity wallets
+CREATE TABLE IF NOT EXISTS eth_graavity_link (
+    graavity_wallet_id VARCHAR(128) PRIMARY KEY REFERENCES users(public_key),  -- Links to public_key in users table
     eth_address VARCHAR(42) UNIQUE NOT NULL,                                  -- Unique ETH address
     eth_balance NUMERIC(38, 18) DEFAULT 0,                                    -- Balance in Wei
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP

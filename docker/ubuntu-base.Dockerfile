@@ -1,5 +1,5 @@
 FROM ubuntu:16.04
-MAINTAINER Will <will@nuchain.io>
+MAINTAINER Will <will@graavity.io>
 
 RUN apt-get -y update && \
     apt-get -y upgrade
@@ -9,7 +9,7 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 575159689B
     apt-get -y update && \
     apt-get install -y libtool pkg-config build-essential autoconf automake rlwrap htop tmux libevent-dev libncurses-dev stack wget curl lsb-release libpcre++-dev
 
-ENV MYSQL_PWD nuchain
+ENV MYSQL_PWD graavity
 RUN echo "mysql-server mysql-server/root_password password $MYSQL_PWD" | debconf-set-selections && \
     echo "mysql-server mysql-server/root_password_again password $MYSQL_PWD" | debconf-set-selections
 

@@ -14,13 +14,13 @@ aws configure &&
 
 # Create security group that allows:
 # a. The Ansible monitor instance to ssh into all instances it creates (required)
-# b. All instances running nuchainserver to communicate via 10000 port (required)
-# c. The Ansible monitor instance to be able to send API requests to nuchainserver instances
+# b. All instances running graavityserver to communicate via 10000 port (required)
+# c. The Ansible monitor instance to be able to send API requests to graavityserver instances
 #    via HTTP, 8000 port (required)
 # d. Allow developers to ssh into all instances created for debugging and 
 #    monitoring (room for impovement)
 echo "Creating Security Group" &&
-aws ec2 create-security-group --group-name $SECURITY_GROUP_NAME --description "security group for testing nuchain_beta" &&
+aws ec2 create-security-group --group-name $SECURITY_GROUP_NAME --description "security group for testing graavity_beta" &&
 aws ec2 authorize-security-group-ingress --group-name $SECURITY_GROUP_NAME --protocol all --source-group $SECURITY_GROUP_NAME &&
 aws ec2 authorize-security-group-ingress --group-name $SECURITY_GROUP_NAME --protocol tcp --port 22 --cidr 0.0.0.0/0 &&
 aws ec2 authorize-security-group-ingress --group-name $SECURITY_GROUP_NAME --ip-permissions IpProtocol=tcp,FromPort=22,ToPort=22,Ipv6Ranges=[{CidrIpv6=::/0}] &&

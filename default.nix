@@ -1,1 +1,1 @@
-(import ./project.nix {}).ghc.nuchain
+(import ./project.nix {}).ghc.graavity

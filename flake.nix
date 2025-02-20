@@ -1,5 +1,5 @@
 {
-  description = "Nuchain";
+  description = "graavity";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     systems.url = "github:nix-systems/default";
@@ -230,13 +230,13 @@
         };
 
         # Default package & app.
-        packages.default = self'.packages.nuchain;
+        packages.default = self'.packages.graavity;
         apps.default = self'.apps.kadenaserver;
 
         # Default shell.
         devShells.default = pkgs.mkShell {
-          name = "nuchain-devshell";
-          meta.description = "nuchain development environment";
+          name = "graavity-devshell";
+          meta.description = "graavity development environment";
           # See https://community.flake.parts/haskell-flake/devshell#composing-devshells
           inputsFrom = [
             config.haskellProjects.default.outputs.devShell

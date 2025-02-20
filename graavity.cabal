@@ -1,0 +1,480 @@
+cabal-version:       2.2
+name:                graavity
+version:             1.4.0.0
+synopsis:            A high performance permissioned blockchain.
+description:         An implementation of ScalableBFT running Pact as the Smart Contract Language
+homepage:            https://github.com/buckie/graavity
+author:              Will Martino, Stuart Popejoy, Mark Nichols
+maintainer:          will@graavity.io
+copyright:           Copyright (C) 2014-2015 Chris Copeland
+                     Copyright 2015-2017 (C) Will Martino, Stuart Popejoy
+                     Copyright 2018-2020 (C) graavity LLC
+
+license:             BSD-3-Clause
+license-file:        LICENSE
+
+category:            Network
+build-type:          Simple
+
+source-repository head
+  type:     git
+  location: git@github.com:buckie/graavity.git
+
+
+flag db-adapters
+    description: enable DB adapters for MySQL, MSSQL (TBD)
+    manual: False
+    default: False
+
+library
+  exposed-modules:     Apps.graavity.Client
+                     , Apps.graavity.Server
+                     , graavity.Execution.Pact
+                     , graavity.Execution.Service
+                     , graavity.Command
+                     , graavity.Config
+                     , graavity.Config.ClusterMembership
+                     , graavity.Config.TMVar
+                     , graavity.ConfigChange
+                     , graavity.ConfigChange.Util
+                     , graavity.Consensus.Handle
+                     , graavity.Consensus.Handle.AppendEntries
+                     , graavity.Consensus.Handle.Command
+                     , graavity.Consensus.Handle.ElectionTimeout
+                     , graavity.Consensus.Handle.HeartbeatTimeout
+                     , graavity.Consensus.Handle.RequestVote
+                     , graavity.Consensus.Handle.RequestVoteResponse
+                     , graavity.Consensus.Publish
+                     , graavity.Consensus.Raft.Client
+                     , graavity.Consensus.Raft.Common
+                     , graavity.Consensus.Raft.Main
+                     , graavity.Consensus.Raft.Node
+                     , graavity.Consensus.Raft.RaftExampleT
+                     , graavity.Consensus.Raft.SocketClient
+                     , graavity.Consensus.Raft.SocketNode
+                     , graavity.Consensus.Raft.Store
+                     , graavity.Consensus.Service
+                     , graavity.Consensus.Util
+                     , graavity.Event
+                    --  , graavity.EVMHandler
+                     , graavity.Evidence.Service
+                     , graavity.Evidence.Spec
+                     , graavity.Execution.ConfigChange
+                     , graavity.HTTP.ApiServer
+                     , graavity.History.Persistence
+                     , graavity.History.Service
+                     , graavity.Log
+                     , graavity.Log.LogApi
+                     , graavity.Log.Persistence
+                     , graavity.Log.Service
+                     , graavity.Log.Types
+                     , graavity.Message
+                     , graavity.Messaging.Turbine
+                     , graavity.Messaging.Turbine.AER
+                     , graavity.Messaging.Turbine.General
+                     , graavity.Messaging.Turbine.NewCMD
+                     , graavity.Messaging.Turbine.RV
+                     , graavity.Messaging.Turbine.Util
+                     , graavity.Messaging.ZMQ
+                     , graavity.Monitoring.Server
+                     , graavity.PreProc.Service
+                     , graavity.Private.Private
+                     , graavity.Private.Service
+                     , graavity.Sender.Service
+                     , graavity.Spec.Simple
+                     , graavity.Types
+                     , graavity.Types.Base
+                     , graavity.Types.Command
+                     , graavity.Types.Comms
+                     , graavity.Types.Config
+                     , graavity.Types.ConfigChange
+                     , graavity.Types.Crypto
+                     , graavity.Types.Dispatch
+                     , graavity.Types.Entity
+                     , graavity.Types.Event
+                     , graavity.Types.Evidence
+                     , graavity.Types.Execution
+                     , graavity.Types.History
+                     , graavity.Types.HTTP
+                     , graavity.Types.Log
+                     , graavity.Types.Message
+                     , graavity.Types.Message.AE
+                     , graavity.Types.Message.AER
+                     , graavity.Types.Message.NewCMD
+                     , graavity.Types.Message.RV
+                     , graavity.Types.Message.RVR
+                     , graavity.Types.Message.Signed
+                     , graavity.Types.Metric
+                     , graavity.Types.PactDB
+                     , graavity.Types.PreProc
+                     , graavity.Types.Private
+                     , graavity.Types.Sender
+                     , graavity.Types.Spec
+                     , graavity.Types.Sqlite
+                     , graavity.Types.Turbine
+                     , graavity.Util.SeedPhrase
+                     , graavity.Util.Util
+                     , Pact.Persist.CacheAdapter
+                     , Pact.Persist.WriteBehind
+
+  build-depends:       BoundedChan
+                     , aeson
+                     , aeson-pretty
+                     , ansi-wl-pprint
+                     , array
+                     , async
+                     , attoparsec
+                     , auto-update
+                     , base
+                     , base16-bytestring
+                     , base64-bytestring
+                     , binary
+                     , bloomfilter
+                     , bound
+                     , bytestring
+                     , Cabal
+                     , cacophony
+                     , cereal
+                     , containers
+                     , criterion
+                     , crypto-api
+                     , crypton
+                     , curryer-rpc
+                     , data-default
+                     , deepseq
+                     , direct-sqlite
+                     , directory
+                     , ed25519-donna
+                     , enclosed-exceptions
+                     , errors
+                     , exceptions
+                     , extra
+                     , fast-logger
+                     , filepath
+                     , ghc-prim
+                     , hashable
+                     , hspec
+                     , http-client
+                     , libraft
+                     , lens
+                     , lens-aeson
+                     , lifted-base
+                     , lz4
+                     , megaparsec
+                     , memory
+                     , monad-control
+                     , monad-loops
+                     , monad-par
+                     , mtl
+                     , mtl-compat
+                     , network
+                     , pact
+                     , pact-json
+                     , parallel
+                     , parsers
+                     , prelude-extras
+                     , prettyprinter
+                     , primitive
+                     , process
+                     , random
+                     , safe
+                     , safe-exceptions
+                     , scientific
+                     , semigroups
+                     , servant
+                     , servant-client
+                     , servant-client-core
+                     , snap-core
+                     , servant-server
+                     , snap-server
+                     , sqlite-simple
+                     , stm
+                     , strict-tuple
+                     , string-conv
+                     , text
+                     , thyme
+                     , time
+                     , transformers
+                     , trifecta
+                     , unix
+                     , unordered-containers
+                     , utf8-string
+                     , vector
+                     , vector-space
+                     , wai-cors
+                     , warp
+                     , winery
+                     , wreq
+                     , yaml
+                     , zeromq4-haskell
+                     , zlib
+                     , protolude
+                     , postgresql-simple
+                     , optparse-applicative
+                     , repline
+                     , postgresql-simple-url
+                     , word8
+                     , network-simple
+                     , transformers-base
+                     , concurrency
+                     , byteable
+                     , postgresql-simple
+                     , hw-kafka-client
+                     , hedis
+                     , web3-ethereum
+                     , web3-provider
+                     , web3-polkadot
+                     , web3
+                     , web3-solidity
+                     , masala
+                     , higher-leveldb
+                     , resourcet
+
+  other-modules:     Paths_graavity
+  hs-source-dirs:      src
+  ghc-options:         -Wall -fno-warn-unused-do-bind -O3
+  ghc-prof-options:    -fprof-auto -fprof-auto-calls
+  default-language:    Haskell2010
+  if flag(db-adapters)
+     cpp-options: -DDB_ADAPTERS=1
+
+executable genconfs
+  main-is:             GenerateConfigFiles.hs
+  build-depends:       base
+                     , aeson
+                     , bytestring
+                     , containers
+                     , unordered-containers
+                     , crypto-api
+                     , directory
+                     , ed25519-donna
+                     , filepath
+                     , graavity
+                     , network
+                     , text
+                     , thyme
+                     , yaml
+                     , pact
+                     , data-default
+                     , lens
+  hs-source-dirs:      executables
+  ghc-options:         -Wall -threaded -rtsopts
+  default-language:    Haskell2010
+
+executable sentinel
+  main-is:             Sentinel.hs
+  build-depends:       base
+                     , aeson
+                     , bytestring
+                     , curryer-rpc
+                     , graavity
+                     , pact
+                     , pact-json
+                     , scientific
+                     , servant
+                     , servant-server
+                     , SHA
+                     , text
+                     , unordered-containers
+                     , warp
+                     , base16-bytestring
+                     , crypton
+                     , winery
+                     , ed25519-donna
+                     , memory
+                     , time
+                     , dotenv
+                     , data-default
+                     , random
+                     , web3-ethereum
+                     , web3-provider
+                     , web3-polkadot
+                     , web3
+                     , web3-solidity
+                     , memory-hexstring
+  hs-source-dirs:      executables
+  ghc-options:         -Wall -threaded -O3 -rtsopts -with-rtsopts=-N -with-rtsopts=-T
+  -- ghc-prof-options:    -fprof-auto -fprof-auto-calls
+  default-language:    Haskell2010
+
+executable shard
+  main-is:             Shard.hs
+  build-depends:       base
+                     , aeson
+                     , bytestring
+                     , curryer-rpc
+                     , libraft
+                     , higher-leveldb
+                     , pact
+                     , graavity
+                     , winery
+                     , scientific
+                     , text
+                     , time
+                     , random
+                     , cereal
+                     , network-simple
+                     , exceptions
+                     , concurrency
+                     , lifted-base
+                     , protolude
+                     , servant-server
+                     , threads
+                     , postgresql-simple
+                     , hw-kafka-client
+                     , hedis
+                     , dotenv
+                     , web3
+                     , web3-ethereum
+  hs-source-dirs:      executables
+  ghc-options:         -Wall -threaded -O3 -rtsopts -with-rtsopts=-N -with-rtsopts=-T
+  ghc-prof-options:    -fprof-auto -fprof-auto-calls
+  default-language:    Haskell2010
+
+executable atomizer
+  main-is:             Atomizer.hs
+  build-depends:       base
+                     , aeson
+                     , bytestring
+                     , curryer-rpc
+                     , higher-leveldb
+                     , pact
+                     , libraft
+                     , text
+                     , graavity
+                     , winery
+                     , random
+                     , scientific
+                     , pact-json
+                     , servant-server
+                     , postgresql-simple
+                     , hw-kafka-client
+                     , hedis
+                     , dotenv
+                     , time
+                     , crypton
+  hs-source-dirs:      executables
+  ghc-options:         -Wall -threaded -O3 -rtsopts -with-rtsopts=-N -with-rtsopts=-T
+  ghc-prof-options:    -fprof-auto -fprof-auto-calls
+  default-language:    Haskell2010
+
+executable graavityserver
+  main-is:             graavityServer.hs
+  build-depends:       aeson
+                     , base
+                     , bytestring
+                     , curryer-rpc
+                     , http-conduit
+                     , graavity
+                     , process
+                     , scientific
+                     , servant-server
+                     , text
+                     , winery
+  hs-source-dirs:      executables
+  ghc-options:         -Wall -threaded -O3 -rtsopts -with-rtsopts=-N -with-rtsopts=-T
+  ghc-prof-options:    -fprof-auto -fprof-auto-calls
+  default-language:    Haskell2010
+
+executable graavityclient
+  main-is:             graavityClient.hs
+  build-depends:       base
+                     , graavity
+                     , base16-bytestring
+                     , extra
+  hs-source-dirs:      executables
+  ghc-options:         -Wall -threaded -O3 -rtsopts -with-rtsopts=-N4
+  ghc-prof-options:    -fprof-auto -fprof-auto-calls
+  default-language:    Haskell2010
+
+executable inserts
+  main-is:       Main.hs
+  other-modules: Util.TestRunner
+  build-depends:       base
+                     , aeson
+                     , cmdargs
+                     , bytestring
+                     , data-default
+                     , ed25519-donna
+                     , exceptions
+                     , extra
+                     , hspec
+                     , http-client
+                     , HUnit
+                     , graavity
+                     , lens
+                     , pact
+                     , process
+                     , safe
+                     , text
+                     , transformers
+                     , trifecta
+                     , unordered-containers
+                     , wreq
+                     , yaml
+  hs-source-dirs:     executables/inserts
+                    , tests
+  ghc-options:        -Wall -threaded -rtsopts -with-rtsopts=-N4
+
+  default-language:   Haskell2010
+
+executable watchtower
+  main-is:             WatchTower.hs
+  build-depends:       base
+                     , aeson
+                     , bytestring
+                     , curryer-rpc
+                     , graavity
+                     , pact
+                     , pact-json
+                     , scientific
+                     , servant
+                     , servant-server
+                     , SHA
+                     , text
+                     , unordered-containers
+                     , warp
+                     , base16-bytestring
+                     , crypton
+                     , winery
+                     , higher-leveldb
+                     , cereal
+                     , time
+                     , postgresql-simple
+                     , hw-kafka-client
+                     , hedis
+                     , dotenv
+  hs-source-dirs:      executables
+  ghc-options:         -Wall -threaded -O3 -rtsopts -with-rtsopts=-N -with-rtsopts=-T
+  ghc-prof-options:    -fprof-auto -fprof-auto-calls
+  default-language:    Haskell2010
+
+executable validator
+  main-is:             Validator.hs
+  build-depends:       base
+                     , aeson
+                     , graavity
+                     , pact
+                     , bytestring
+                     , curryer-rpc
+                     , scientific
+                     , text
+                     , unordered-containers
+                     , warp
+                     , base16-bytestring
+                     , crypton
+                     , winery
+                     , higher-leveldb
+                     , mtl
+                     , async
+                     , network
+                     , directory
+                     , libraft
+                     , stm
+                     , cereal
+                     , protolude
+                     , containers
+  hs-source-dirs:      executables
+  ghc-options:         -Wall -threaded -O3 -rtsopts -with-rtsopts=-N -with-rtsopts=-T
+  ghc-prof-options:    -fprof-auto -fprof-auto-calls
+  default-language:    Haskell2010

@@ -32,13 +32,13 @@ import qualified Data.Text as T
 import System.Directory
 import System.Exit
 
-import qualified Nuchain.Config.ClusterMembership as CM
-import Nuchain.Config.TMVar
-import Nuchain.Types.Crypto
-import Nuchain.Types.PactDB
-import Nuchain.Types
-import Nuchain.Types.Entity
-import Apps.Nuchain.Client hiding (main)
+import qualified graavity.Config.ClusterMembership as CM
+import graavity.Config.TMVar
+import graavity.Types.Crypto
+import graavity.Types.PactDB
+import graavity.Types
+import graavity.Types.Entity
+import Apps.graavity.Client hiding (main)
 
 import Pact.Types.Crypto hiding (genKeyPair)
 import qualified Pact.Types.Crypto as PCrypto

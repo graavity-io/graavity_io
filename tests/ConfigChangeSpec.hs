@@ -15,8 +15,8 @@ import           Safe
 import           System.Time.Extra (sleep)
 import           Test.Hspec
 
-import           Apps.Nuchain.Client
-import           Nuchain.Types.Command hiding (result)
+import           Apps.graavity.Client
+import           graavity.Types.Command hiding (result)
 
 import           Util.TestRunner
 
@@ -322,31 +322,31 @@ serverCmd n =
 testMetricSize4 :: TestMetric
 testMetricSize4 = TestMetric
   { testNameTm = "testMetricSize4"
-  , metricNameTm = "/nuchain/cluster/size"
+  , metricNameTm = "/graavity/cluster/size"
   , evalTm = (\s -> readDef (0.0 :: Float) s == 4.0) }
 
 testMetricSize3 :: TestMetric
 testMetricSize3 = TestMetric
   { testNameTm = "testMetricSize3"
-  , metricNameTm = "/nuchain/cluster/size"
+  , metricNameTm = "/graavity/cluster/size"
   , evalTm = (\s -> readDef (0.0 :: Float) s == 3.0) }
 
 testMetric123 :: TestMetric
 testMetric123 = TestMetric
   { testNameTm = "testMetric123"
-  , metricNameTm = "/nuchain/cluster/members"
+  , metricNameTm = "/graavity/cluster/members"
   , evalTm = (\s -> (splitOn ", " s) /= ["node1", "node2", "node3"]) }
 
 testMetric13 :: TestMetric
 testMetric13 = TestMetric
   { testNameTm = "testMetric13"
-  , metricNameTm = "/nuchain/cluster/members"
+  , metricNameTm = "/graavity/cluster/members"
   , evalTm = (\s -> (splitOn ", " s) /= ["node1", "node3"]) }
 
 testMetric12 :: TestMetric
 testMetric12 = TestMetric
   { testNameTm = "testMetric12"
-  , metricNameTm = "/nuchain/cluster/members"
+  , metricNameTm = "/graavity/cluster/members"
   , evalTm = (\s -> (splitOn ", " s) /= ["node1", "node2"]) }
 
 -- | Adding `sleep` between failures prevents the metrics server

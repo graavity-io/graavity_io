@@ -1,5 +1,5 @@
 #!/bin/bash
-# Installs software dependencies for nuchain-beta 1.1.3.1 and ansible 2.6.2
+# Installs software dependencies for graavity-beta 1.1.3.1 and ansible 2.6.2
 # in Ubuntu 16.04 distribution.
 # To run, `sudo /path/to/setup-ubuntu-base.sh`
 

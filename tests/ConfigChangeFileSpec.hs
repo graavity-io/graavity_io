@@ -10,9 +10,9 @@ import Data.Either
 import qualified Data.Yaml as Y
 import Test.Hspec
 
-import qualified Nuchain.Types.Crypto as KC
-import Nuchain.Types.Base
-import Nuchain.Types.Command
+import qualified graavity.Types.Crypto as KC
+import graavity.Types.Base
+import graavity.Types.Command
 
 import Pact.Types.Util (fromText')
 

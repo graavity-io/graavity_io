@@ -2,7 +2,7 @@ module Main where
 
 import System.Environment (getArgs)
 import Raft.Config (StorageState (..))
-import Nuchain.Consensus.Raft.Node (LogStorage (..), nodeMain)
+import graavity.Consensus.Raft.Node (LogStorage (..), nodeMain)
 import qualified Data.ByteString.Char8 as Char8
 
 main :: IO ()
@@ -135,17 +135,17 @@ main = do
 -- import Network.RPC.Curryer.Client
 -- import Network.RPC.Curryer.Server
 -- import Network.Socket hiding (connect)
--- import Nuchain.Config.TMVar
--- import Nuchain.Consensus.Publish
--- import Nuchain.Consensus.Raft.Node
+-- import graavity.Config.TMVar
+-- import graavity.Consensus.Publish
+-- import graavity.Consensus.Raft.Node
 -- import Raft.Config
 -- import Raft.Client
--- import Nuchain.Consensus.Raft.Common
--- import Nuchain.Consensus.Raft.SocketNode
+-- import graavity.Consensus.Raft.Common
+-- import graavity.Consensus.Raft.SocketNode
 -- import Raft.Types
 -- import Raft
--- import Nuchain.HTTP.ApiServer hiding (sendClient)
--- import Nuchain.Spec.Simple
+-- import graavity.HTTP.ApiServer hiding (sendClient)
+-- import graavity.Spec.Simple
 -- import qualified Pact.Types.API as P
 -- import Pact.Types.Command as P
 -- import Pact.Types.Hash as P

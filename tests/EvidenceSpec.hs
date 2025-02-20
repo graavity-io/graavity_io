@@ -9,8 +9,8 @@ import Data.Set (Set)
 import qualified Data.Set as Set
 import Test.Hspec
 
-import Nuchain.Evidence.Service (checkPartialEvidence')
-import Nuchain.Types.Base (Alias (..), LogIndex(..), NodeId(..))
+import graavity.Evidence.Service (checkPartialEvidence')
+import graavity.Types.Base (Alias (..), LogIndex(..), NodeId(..))
 
 
 spec :: Spec
