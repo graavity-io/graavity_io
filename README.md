@@ -1,11 +1,9 @@
 # Graavity
 
-Graavity is Graavity's high-performance permissioned blockchain, based upon the ScalableBFT consensus algorithm
-by Will Martino. Graavity also features _counterparty confidentiality_ leveraging the Noise protocol,
-and runs the Pact smart contract language.
+Graavity is Graavity's high-performance permissioned blockchain. Graavity uses Pact for its Virtual Machine. EVM-Compatiability has to be implemented to remove Pact dependancy. .
 
 For more information:
-- [Pact](https://github.com/kadena-io/pact)
+- [Pact](https://github.com/kadena-io/pact) (Open-source under BSD3 License)
 - [ScalableBFT whitepaper](https://d31d887a-c1e0-47c2-aa51-c69f9f998b07.filesusr.com/ugd/86a16f_aeb9004965c34efd9c48993c4e63a9bb.pdf)
 - [Confidentiality whitepaper](https://d31d887a-c1e0-47c2-aa51-c69f9f998b07.filesusr.com/ugd/86a16f_29bcbfd45f9e48139e6db4e5a0fbf5f1.pdf)
 
